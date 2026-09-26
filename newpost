@@ -1,0 +1,61 @@
+#!/usr/bin/env python3
+"""Create a blog post JSON outline and stamp the current UTC date and time."""
+
+import argparse
+import json
+import sys
+from datetime import datetime, timezone
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent
+POSTS = ROOT / "main"
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(
+        description="Create a blog post JSON outline and set the current UTC date and time."
+    )
+    parser.add_argument("title", nargs="?", default="", help="Post title")
+    parser.add_argument(
+        "-l",
+        "--link",
+        action="append",
+        default=[],
+        metavar="URL",
+        help="Link to include (repeatable)",
+    )
+    parser.add_argument("-b", "--body", default="", help="Post body")
+    parser.add_argument(
+        "-p",
+        "--paper",
+        default="",
+        help="Companion paper path, e.g. papers/notes.md",
+    )
+    args = parser.parse_args()
+
+    now = datetime.now(timezone.utc).replace(microsecond=0)
+    stamp = now.strftime("%Y-%m-%d-%H%MZ")
+    path = POSTS / f"{stamp}.json"
+    if path.exists():
+        stamp = now.strftime("%Y-%m-%d-%H%M%SZ")
+        path = POSTS / f"{stamp}.json"
+    if path.exists():
+        print(f"error: {path.name} already exists", file=sys.stderr)
+        return 1
+
+    post = {
+        "date": now.strftime("%Y-%m-%dT%H:%M:%SZ"),
+        "title": args.title.strip(),
+        "links": args.link,
+        "body": args.body,
+        "paper": args.paper,
+    }
+
+    POSTS.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(post, indent=2) + "\n", encoding="utf-8")
+    print(path.relative_to(ROOT))
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
