@@ -1,7 +1,7 @@
 {
   "date": "2026-09-25",
   "title": "This is an example title",
-  "links": ["https://example1.com", "https://example2.com/"],
+  "links": ["https://google.com", "https://google.com/"],
   "body": "This is an example of a blog post body",
   "paper": "papers/example.md"
 }
