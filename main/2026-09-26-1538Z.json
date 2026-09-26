@@ -1,0 +1,7 @@
+{
+  "date": "2026-09-26T15:38:54Z",
+  "title": "Qwen 3.8 27B Q4_K_M",
+  "links": ["https://huggingface.co/lmstudio-community/Qwen3.8-27B-GGUF", "https://huggingface.co/Qwen/Qwen3.8-27B"],
+  "body": "Lately, I have been daily driving Qwen 3.8 27B on my homelab. Specifically, I have been using the Q4_K_M model from LMStudio community and hosting it with LMStudio. I have also been experimenting with different speculative decoding methods like dspark, dflash, and the MTP that comes with the model. I am able to run the model at max context across the V100 and Titan V but with the caveat of slower prompt processing times and slower tokens per second generation speeds as the context increases. For reasoning mode, I usually run the model at medium or extra high which produce the most usable results at this quantization, although the reasoning does use a lot of tokens compared to other models of the same size. The section below contains my specific settings, speeds, and some results.",
+  "paper": "papers/dailydriving.md"
+}
