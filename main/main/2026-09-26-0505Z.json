@@ -1,0 +1,6 @@
+{
+  "title": "First post",
+  "links": ["https://revolverllm.com"],
+  "body": "This is my first blog post. Check out my app for running local AI models!",
+  "paper": "papers/revolverllminstall.md"
+}
